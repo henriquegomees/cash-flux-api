@@ -4,10 +4,16 @@
   "main": "index.js",
   "author": "Henrique Gomes",
   "license": "MIT",
+  "scripts": {
+    "dev": "nodemon src/index.js"
+  },
   "dependencies": {
     "mongoose": "^5.4.4",
     "mongoose-timestamp": "^0.6.0",
     "restify": "^7.5.0",
     "restify-errors": "^6.1.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.9"
   }
 }
