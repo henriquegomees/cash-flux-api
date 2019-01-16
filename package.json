@@ -1,10 +1,11 @@
 {
   "name": "cash-flux-api",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "src/index.js",
   "author": "Henrique Gomes",
   "license": "MIT",
   "scripts": {
+    "start": "node src/index.js",
     "dev": "nodemon src/index.js"
   },
   "dependencies": {
@@ -15,5 +16,8 @@
   },
   "devDependencies": {
     "nodemon": "^1.18.9"
+  },
+  "engines": {
+    "node": "11.6.0"
   }
 }
