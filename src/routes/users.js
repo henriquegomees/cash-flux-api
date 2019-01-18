@@ -1,11 +1,12 @@
 
-const restifyErros = require('restify-errors')
-const User         = require('../models/User')
-const bcrypt       = require('bcryptjs')
+const restifyErrors = require('restify-errors')
+const User          = require('../models/User')
+const bcrypt        = require('bcryptjs')
 
 
 module.exports = server => {
 
+    //Posting a new user
     server.post('/api/user', async (req, res, next) => {
         const { email, password } = req.body
         
@@ -25,9 +26,11 @@ module.exports = server => {
             bcrypt.hash(password, salt, async (err, hash) => {
                 newUser.password = hash
                 try {
+
                     newUser.save()
                     res.send(201)
                     next()
+                    
                 } catch (err) {
                     return next(new restifyErrors.InternalError(err.message))
                 }
@@ -35,15 +38,22 @@ module.exports = server => {
         })
     })
 
-    //Fetch all users
-    server.get('/api/users', async (req, res, sed) => {
-        try {
-            const users = await User.find()
-            res.send(users)
-            next()
-        } catch (err) {
-            return next(new restifyErrors.InternalError(err.message))
+    //Fetch single user
+    server.post('/api/auth', async (req, res, next) => {
+        const { email, password } = req.body
+        const user = await User.findOne({ email })
+
+        if( !user ){
+            res.send('User not registered')
+            return next(new restifyErrors.ResourceNotFoundError('User not registered'))
         }
+
+        bcrypt.compare( password, user.password, (err, match) => {
+            if( !match ){
+                return next(new restifyErrors.UnauthorizedError('Incorrect password'))
+            }
+            res.send('AUTHORIZED, DUDE. HERE I WILL SEND A JWT OR SOMETHING LIKE THIS. HELP ME!!')
+        })
     })
 
 }
