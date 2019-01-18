@@ -21,5 +21,6 @@ database.on( 'error', err => console.log(err) )
 //If the database is connected
 database.once( 'open', () => {
     require('./routes/expenses')( server )
+    require('./routes/users')( server )
     console.log( `Server running on port ${config.PORT}` )
 })

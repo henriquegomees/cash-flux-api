@@ -9,6 +9,7 @@
     "dev": "nodemon src/index.js"
   },
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "mongoose": "^5.4.4",
     "mongoose-timestamp": "^0.6.0",
     "restify": "^7.5.0",
